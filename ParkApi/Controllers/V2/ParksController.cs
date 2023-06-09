@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParkApi.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 
 
 namespace ParkApi.Controllers.v2
 {
+  [Authorize]
   [ApiController]
   [Route("api/v{version:apiVersion}[controller]")]
   [ApiVersion("2.0")]
