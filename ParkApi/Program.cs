@@ -1,6 +1,8 @@
 using ParkApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,28 +16,34 @@ builder.Services.AddApiVersioning(config =>
     config.ReportApiVersions = true;
 });
 
-builder.Services.AddDbContext<ParkApiContext>(
-                  dbContextOptions => dbContextOptions
-                    .UseMySql(
-                      builder.Configuration["ConnectionStrings:DefaultConnection"], 
-                      ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
-                    )
-                  )
-                );
+builder.Services.AddDbContext<ParkApiContext>(dbContextOptions =>
+    dbContextOptions.UseMySql(builder.Configuration["ConnectionStrings:DefaultConnection"],
+    ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"])));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName);
+        }
+    });
 }
-else 
+else
 {
-  app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 }
 
 app.UseAuthorization();
