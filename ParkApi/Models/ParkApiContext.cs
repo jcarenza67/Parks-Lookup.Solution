@@ -1,4 +1,4 @@
-using MicrosoftEntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace ParkApi.Models
 {
