@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParkApi.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ParkApi.Controllers
+
+namespace ParkApi.Controllers.v2
 {
-  [Route("api/[controller]")]
   [ApiController]
+  [Route("api/v{version:apiVersion}[controller]")]
+  [ApiVersion("2.0")]
   public class ParksController : ControllerBase
   {
     private readonly ParkApiContext _db;
@@ -16,9 +20,30 @@ namespace ParkApi.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get()
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string parkName, string state, string description, int pageNumber = 1, int pageSize = 5)
     {
-      return Ok(await _db.Parks.ToListAsync());
+      var query = _db.Parks.AsQueryable();
+
+      if (parkName != null)
+      {
+        query = query.Where(entry => entry.ParkName == parkName);
+      }
+
+      if (state != null)
+      {
+        query = query.Where(entry => entry.State == state);
+      }
+
+      if (description != null)
+      {
+        query = query.Where(entry => entry.Description == description);
+      }
+
+      query = query.Skip((pageNumber - 1) * pageSize);
+
+      query = query.Take(pageSize);
+
+      return await query.ToListAsync();
     }
 
     [HttpGet("{id}")]
@@ -41,6 +66,14 @@ namespace ParkApi.Controllers
       await _db.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
+    }
+
+    [HttpGet("random")]
+    public async Task<ActionResult<Park>> GetRandom()
+    {
+      List<Park> parks = await _db.Parks.ToListAsync();
+      Random rand = new Random();
+      return parks[rand.Next(parks.Count)];
     }
 
     [HttpPut("{id}")]
