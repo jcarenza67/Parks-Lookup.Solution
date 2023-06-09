@@ -14,12 +14,5 @@ namespace ParkApi.Models
     [Required]
     public string Description { get; set; }
     [Required]
-    public string UserName { get; set; }
-    [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
-    public int Rating { get; set; }
-    [Required]
-    public DateTime Date { get; set; }
-
-
   }
 }
