@@ -7,7 +7,7 @@ using System.Linq;
 namespace ParkApi.Controllers.v1
 {
   [ApiController]
-  [Route("api/v1/[controller]")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
   public class ParksController : ControllerBase
   {
