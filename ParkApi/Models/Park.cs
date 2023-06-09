@@ -6,7 +6,7 @@ namespace ParkApi.Models
 {
   public class Park
   {
-    public string ParkId { get; set; }
+    public int ParkId { get; set; }
     [Required]
     public string ParkName { get; set; }
     [Required]

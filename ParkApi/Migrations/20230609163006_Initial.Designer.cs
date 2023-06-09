@@ -10,7 +10,7 @@ using ParkApi.Models;
 namespace ParkApi.Migrations
 {
     [DbContext(typeof(ParkApiContext))]
-    [Migration("20230609160806_Initial")]
+    [Migration("20230609163006_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,8 +22,9 @@ namespace ParkApi.Migrations
 
             modelBuilder.Entity("ParkApi.Models.Park", b =>
                 {
-                    b.Property<string>("ParkId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("ParkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
