@@ -41,7 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ValidIssuer = "localhost",
             ValidAudience = "school-project",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kJNNGu3BhyT8MTagVApIz3kZoVkqwpnM"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret-key"))
         };
     });
 

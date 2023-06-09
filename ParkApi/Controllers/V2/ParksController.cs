@@ -10,7 +10,7 @@ namespace ParkApi.Controllers.v2
 {
   [Authorize]
   [ApiController]
-  [Route("api/v{version:apiVersion}[controller]")]
+  [Route("api/v2/[controller]")]
   [ApiVersion("2.0")]
   public class ParksController : ControllerBase
   {
