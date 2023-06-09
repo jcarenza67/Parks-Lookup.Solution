@@ -4,6 +4,13 @@ using ParkApi.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 
 namespace ParkApi.Controllers.v2
@@ -125,6 +132,43 @@ namespace ParkApi.Controllers.v2
       await _db.SaveChangesAsync();
 
       return NoContent();
+    }
+
+    [HttpGet("token")]
+    [AllowAnonymous]
+    public IActionResult GetToken()
+    {
+      var secretKey = "secret-key";
+      var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+      var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+      var claims = new[] {
+          new Claim(JwtRegisteredClaimNames.Sub, "Subject"),
+          new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+          new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+          new Claim("iss", "localhost"),
+          new Claim("aud", "school-project")
+      };
+
+      var token = new JwtSecurityToken(
+          claims: claims,
+          signingCredentials: credentials
+      );
+
+      var tokenHandler = new JwtSecurityTokenHandler();
+      var serializedToken = tokenHandler.WriteToken(token);
+
+      return Ok(serializedToken);
+    }
+
+    private SymmetricSecurityKey GenerateSecurityKey()
+    {
+      var keyBytes = new byte[32];
+      using (var rng = RandomNumberGenerator.Create())
+      {
+          rng.GetBytes(keyBytes);
+      }
+    return new SymmetricSecurityKey(keyBytes);
     }
   }
 }
