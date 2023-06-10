@@ -40,7 +40,9 @@ Endpoints
 * The API exposes the following endpoints:
 
 * 'GET /api/{v1,v2}/parks': Retrieves a list of all national parks.
+
 Example Request: 
+
 ```
     {
         "parkId": 1,
@@ -62,7 +64,9 @@ Example Request:
     },
 ```
 * 'GET /api/{v1,v2}/parks/{id}': Retrieves detailed information about a specific park by its ID.
+
 Example Request: 
+
 ```
     {
         "parkId": 1,
@@ -72,7 +76,9 @@ Example Request:
     }
 ```
 * 'POST /api/{v1,v2}/parks': Adds a new national park to the database.
-Postman: 
+
+Postman:
+
 Create a new POST request in Postman and set the request URL to http://localhost:5000/api/v1/parks. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values:
 ```
     {
@@ -82,7 +88,9 @@ Create a new POST request in Postman and set the request URL to http://localhost
     }
 ```
 * 'PUT /api/{v1,v2}/parks/{id}': Updates information for a specific park.
+
 Postman:
+
 Create a new PUT request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values to update the park:
 ```
     {
@@ -92,7 +100,9 @@ Create a new PUT request in Postman and set the request URL to http://localhost:
     }
 ```
 * 'DELETE /api/{v1,v2}/parks/{id}': Deletes a national park from the database.
+
 Postman:
+
 Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. 
 Press send and you will receive a 204 No Content response if the park was successfully deleted.
 
