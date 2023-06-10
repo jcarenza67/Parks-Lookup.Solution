@@ -30,27 +30,9 @@ Features
 * Update existing park information.
 * Delete parks from the database.
 
-Prerequisites
--------------
+Setup/Installation Requirements
+------------------------------
 
-Before setting up the Park Lookup API, make sure you have the following:
-
-1. Development Environment: Install a development environment suitable for C# development, such as Visual Studio or Visual Studio Code.
-
-2. .NET SDK: Install the latest version of .NET SDK on your machine. You can download it from the official .NET website.
-
-3. MySQL Server: Set up a MySQL database server to store the park and state data. Make sure you have the necessary credentials (host, port, username, password) to connect to the database.
-
-Setup Steps
------------
-
-Follow these steps to set up and run the Park Lookup API:
-
-1. Clone the Repository: Clone the repository containing the API source code to your local machine.
-
-2. Database Configuration: Open the `appsettings.json` file in the API project and update the `DefaultConnection` string with your MySQL database connection details.
-
-3. Database Migration: Open a terminal or command prompt, navigate to the API project's root directory, and run the following command to apply the database migrations:
 
 Endpoints
 ---------
@@ -58,10 +40,61 @@ Endpoints
 * The API exposes the following endpoints:
 
 * 'GET /api/{v1,v2}/parks': Retrieves a list of all national parks.
+Example Request: 
+```
+    {
+        "parkId": 1,
+        "parkName": "Acadia",
+        "state": "Maine",
+        "description": "Acadia National Park is an American national park located in the state of Maine, southwest of Bar Harbor. The park preserves about half of Mount Desert Island, many adjacent smaller islands, and part of the Schoodic Peninsula on the coast of Maine."
+    },
+    {
+        "parkId": 2,
+        "parkName": "Arches",
+        "state": "Utah",
+        "description": "Arches National Park is a national park in eastern Utah, United States. The park is adjacent to the Colorado River, 4 miles north of Moab, Utah. More than 2,000 natural sandstone arches are located in the park, including the well-known Delicate Arch, as well as a variety of unique geological resources and formations."
+    },
+    {
+        "parkId": 3,
+        "parkName": "Badlands",
+        "state": "South Dakota",
+        "description": "Badlands National Park is an American national park located in southwestern South Dakota. The park protects 242,756 acres of sharply eroded buttes and pinnacles, along with the largest undisturbed mixed grass prairie in the United States."
+    },
+```
 * 'GET /api/{v1,v2}/parks/{id}': Retrieves detailed information about a specific park by its ID.
+Example Request: 
+```
+    {
+        "parkId": 1,
+        "parkName": "Acadia",
+        "state": "Maine",
+        "description": "Acadia National Park is an American national park located in the state of Maine, southwest of Bar Harbor. The park preserves about half of Mount Desert Island, many adjacent smaller islands, and part of the Schoodic Peninsula on the coast of Maine."
+    }
+```
 * 'POST /api/{v1,v2}/parks': Adds a new national park to the database.
+Postman: 
+Create a new POST request in Postman and set the request URL to http://localhost:5000/api/v1/parks. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values:
+```
+    {
+        "parkName": "string",
+        "state": "string",
+        "description": "string"
+    }
+```
 * 'PUT /api/{v1,v2}/parks/{id}': Updates information for a specific park.
+Postman:
+Create a new PUT request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values to update the park:
+```
+    {
+        "parkName": "string",
+        "state": "string",
+        "description": "string"
+    }
+```
 * 'DELETE /api/{v1,v2}/parks/{id}': Deletes a national park from the database.
+Postman:
+Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. 
+Press send and you will receive a 204 No Content response if the park was successfully deleted.
 
 Optional Query Parameters
 -------------------------
@@ -80,29 +113,7 @@ The National Parks Lookup API supports the following optional query parameters f
 Links
 -----
 
-[This is the link to the Github repository](LINK GOES HERE) 
-
-
-## Setup/Installation Requirements
-
-* _Click the link provided above_
-* _Click the green dropdown button that says "Code"_
-* _Copy the repository HTTPS, clone it to your Desktop directory by typing ***git clone***, paste the copied URL right after **clone**, and then press enter_
-* _Open the file in your preferred code editor_
-* _Make sure the following files are in your .gitignore file:_
-***obj***
-***bin***
-* _Then ***git add/push*** the .gitignore file ***separately*** to your repository_
-* _Download ***.NET 6 SDK*** by following the directions from this link [Here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0), this will also allow you to use **C#**_
-* _**Open the file**. This will launch an installer which will walk you through installation steps. ***Use default settings***._
-* _Confirm the installation is successful by opening your terminal and running the command ***dotnet --version***._
-```
-6.0.402
-```
-* _Navigate to the ParkApi folder in your terminal_
-* _Then type ***dotnet build*** in your terminal to make sure everything is up to date and there are no errors_
-* _Then launch the webpage by typing ***dotnet watch run*** in the teminal_
-* _For issuing and trusting a security certificate, type ***dotnet dev-certs https --trust*** in the terminal and restart your browser_
+[This is the link to the Github repository](https://github.com/jcarenza67/Parks-Lookup.Solution) 
 
 
 ***_Please contact me at josephwilfong91@gmail.com if you have any questions, ideas, or concerns._***
