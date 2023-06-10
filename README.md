@@ -2,6 +2,18 @@
 
 #### By Joseph Wilfong
 
+Table of Contents
+-----------------
+* <a href="technologies-used">Technologies Used</a>
+* <a href="description">Description</a>
+* <a href="features">Features</a>
+* <a href="setup/installation-requirements">Setup/Installation Requirements</a>
+* <a href="endpoints">Endpoints</a>
+* <a href="optional-query-parameters">Optional Query Parameters</a>
+* <a href="links">Links</a>
+* <a href="known-bugs">Known Bugs</a>
+* <a href="license">License</a>
+
 ## Technologies Used
 
 * _C#_
