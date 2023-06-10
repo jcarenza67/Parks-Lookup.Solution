@@ -1,23 +1,84 @@
-# (PROJECT NAME GOES HERE)
+# Park Lookup API
 
-#### (QUICK DESCRIPTION OF PROJECT GOES HERE)
-
-#### By (NAME GOES HERE)
+#### By Joseph Wilfong
 
 ## Technologies Used
 
 * _C#_
 * _.NET SDK_
-* _MSTest_
+* _MySQL_
+* _MySQL Workbench_
+* _Entity Framework Core_
+* _Swagger UI_
+* _Postman_
 
 
 
 
-## Description
+Description
+-----------
 
-_DESCRIPTION GOES HERE_
+_The Park Lookup API provides information about national parks and the states they are located in. It allows users to retrieve data about different national parks, search for parks based on specific criteria, and access details such as park names, descriptions, and states. It performs CRUD (Create, Read, Update, Delete) operations on park data._
 
-## Links
+Features
+--------
+
+* Retrieve a list of national parks along with their associated states.
+* Search for parks based on park names, states, or descriptions.
+* Access detailed information about a specific park by its ID.
+* Add new national parks to the database.
+* Update existing park information.
+* Delete parks from the database.
+
+Prerequisites
+-------------
+
+Before setting up the Park Lookup API, make sure you have the following:
+
+1. Development Environment: Install a development environment suitable for C# development, such as Visual Studio or Visual Studio Code.
+
+2. .NET SDK: Install the latest version of .NET SDK on your machine. You can download it from the official .NET website.
+
+3. MySQL Server: Set up a MySQL database server to store the park and state data. Make sure you have the necessary credentials (host, port, username, password) to connect to the database.
+
+Setup Steps
+-----------
+
+Follow these steps to set up and run the Park Lookup API:
+
+1. Clone the Repository: Clone the repository containing the API source code to your local machine.
+
+2. Database Configuration: Open the `appsettings.json` file in the API project and update the `DefaultConnection` string with your MySQL database connection details.
+
+3. Database Migration: Open a terminal or command prompt, navigate to the API project's root directory, and run the following command to apply the database migrations:
+
+Endpoints
+---------
+
+* The API exposes the following endpoints:
+
+* 'GET /api/{v1,v2}/parks': Retrieves a list of all national parks.
+* 'GET /api/{v1,v2}/parks/{id}': Retrieves detailed information about a specific park by its ID.
+* 'POST /api/{v1,v2}/parks': Adds a new national park to the database.
+* 'PUT /api/{v1,v2}/parks/{id}': Updates information for a specific park.
+* 'DELETE /api/{v1,v2}/parks/{id}': Deletes a national park from the database.
+
+Optional Query Parameters
+-------------------------
+
+The National Parks Lookup API supports the following optional query parameters for searching and filtering parks:
+
+| Parameter   | Type        | Required | Description |
+| ----------- | ----------- | -------- | ----------- |
+| parkName    | String      | Yes       | Filters parks by the park name. |
+| state       | String      | Yes       | Filters parks by the state. |
+| description | String      | Yes       | Filters parks by the description. |
+| pageNumber  | Int         | No       | Specifies the page number for paginated results. |
+| pageSize    | Int         | No       | Specifies the number of parks to include per page. |
+
+
+Links
+-----
 
 [This is the link to the Github repository](LINK GOES HERE) 
 
@@ -38,21 +99,19 @@ _DESCRIPTION GOES HERE_
 ```
 6.0.402
 ```
-* _Navigate to the [PROJECT NAME GOES HERE] folder in your terminal_
+* _Navigate to the ParkApi folder in your terminal_
 * _Then type ***dotnet build*** in your terminal to make sure everything is up to date and there are no errors_
 * _Then launch the webpage by typing ***dotnet watch run*** in the teminal_
 * _For issuing and trusting a security certificate, type ***dotnet dev-certs https --trust*** in the terminal and restart your browser_
-* _If you need to install MSTest, type ***dotnet tool install -g dotnet-suggest*** in the terminal_
-* _If you would like to run the tests, type ***dotnet restore*** in the terminal to restore the dependencies that are listed in the .csproj file_
-* _Run the tests by moving into the [PROJECT NAME GOES HERE].Tests folder and typing ***dotnet test*** in the terminal to run tests_
 
 
-***_Please contact me at EMAILGOESHERE@WEBSITE.com if you have any questions, ideas, or concerns._***
+***_Please contact me at josephwilfong91@gmail.com if you have any questions, ideas, or concerns._***
 
 
-## Known Bugs
+Known Bugs
+----------
 
-* _BUGS GO HERE_
+* _V1 and V2 works, V2 just does ***not*** work with authentication yet_
 
 ## License
 
@@ -63,4 +122,4 @@ _The above copyright notice and this permission notice shall be included in all 
 
 _THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE._
 
-_Copyright (c) _2023_ _NAME GOES HERE_
+_Copyright (c) _2023_ _Joseph Wilfong_
