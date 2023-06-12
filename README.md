@@ -89,6 +89,43 @@ Example Request:
 ```
 * 'POST /api/{v1,v2}/parks': Adds a new national park to the database.
 
+* 'Get /api/v1,v2/Parks?pageNumber=1&pageSize=5': Retrieves a list of all national parks for the specified page number and page size.
+
+Example Request:
+  
+  ```
+      {
+          "parkId": 1,
+          "parkName": "Acadia",
+          "state": "Maine",
+          "description": "Acadia National Park is an American national park located in the state of Maine, southwest of Bar Harbor. The park preserves about half of Mount Desert Island, many adjacent smaller islands, and part of the Schoodic Peninsula on the coast of Maine."
+      },
+      {
+          "parkId": 2,
+          "parkName": "Arches",
+          "state": "Utah",
+          "description": "Arches National Park is a national park in eastern Utah, United States. The park is adjacent to the Colorado River, 4 miles north of Moab, Utah. More than 2,000 natural sandstone arches are located in the park, including the well-known Delicate Arch, as well as a variety of unique geological resources and formations."
+      },
+      {
+          "parkId": 3,
+          "parkName": "Badlands",
+          "state": "South Dakota",
+          "description": "Badlands National Park is an American national park located in southwestern South Dakota. The park protects 242,756 acres of sharply eroded buttes and pinnacles, along with the largest undisturbed mixed grass prairie in the United States."
+      },
+      {
+          "parkId": 4,
+          "parkName": "Big Bend",
+          "state": "Texas",
+          "description": "Big Bend National Park is an American national park located in West Texas, bordering Mexico. The park has national significance as the largest protected area of Chihuahuan Desert topography and ecology in the United States."
+      },
+      {
+          "parkId": 5,
+          "parkName": "Biscayne",
+          "state": "Florida",
+          "description": "Biscayne National Park is an American national park in southern Florida, south of Miami. The park preserves Biscayne Bay and its offshore barrier reefs. Ninety-five percent of the park is water, and the shore of the bay is the location of an extensive mangrove forest."
+      }
+  ```
+
 Postman:
 
 Create a new POST request in Postman and set the request URL to http://localhost:5000/api/v1/parks. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values:
@@ -118,6 +155,13 @@ Postman:
 Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. 
 Press send and you will receive a 204 No Content response if the park was successfully deleted.
 
+Pagenation Endpoints
+--------------------
+
+* The API also supports pagination for the GET /api/{v2}/parks endpoint. The following endpoints are available for paginated results:
+
+* 'GET /api/{v2}/parks/page/{pageNumber}': Retrieves a list of all national parks for the specified page number.
+
 Optional Query Parameters
 -------------------------
 
@@ -144,7 +188,7 @@ Links
 Known Bugs
 ----------
 
-* _V1 and V2 works, V2 just does ***not*** work with authentication yet_
+* _V1 and V2 works, V3 just does ***not*** work with authentication yet_
 
 ## License
 

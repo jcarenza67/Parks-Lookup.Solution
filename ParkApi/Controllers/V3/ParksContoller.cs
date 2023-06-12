@@ -2,15 +2,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParkApi.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
 
-// regular ApiController
+// Uses Random generator
+// Uses Pagenation
+// Uses JWT *currently not working*
 
-namespace ParkApi.Controllers.v1
+namespace ParkApi.Controllers.v3
 {
+  [Authorize]
   [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
-  [ApiVersion("1.0")]
+  [ApiVersion("3.0")]
   public class ParksController : ControllerBase
   {
     private readonly ParkApiContext _db;
@@ -40,6 +51,10 @@ namespace ParkApi.Controllers.v1
         query = query.Where(entry => entry.Description == description);
       }
 
+      query = query.Skip((pageNumber - 1) * pageSize);
+
+      query = query.Take(pageSize);
+
       return await query.ToListAsync();
     }
 
@@ -63,6 +78,14 @@ namespace ParkApi.Controllers.v1
       await _db.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
+    }
+
+    [HttpGet("random")]
+    public async Task<ActionResult<Park>> GetRandom()
+    {
+      List<Park> parks = await _db.Parks.ToListAsync();
+      Random rand = new Random();
+      return parks[rand.Next(parks.Count)];
     }
 
     [HttpPut("{id}")]
@@ -112,6 +135,43 @@ namespace ParkApi.Controllers.v1
       await _db.SaveChangesAsync();
 
       return NoContent();
+    }
+
+    [HttpGet("token")]
+    [AllowAnonymous]
+    public IActionResult GetToken()
+    {
+      var secretKey = "secret-key";
+      var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+      var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+      var claims = new[] {
+          new Claim(JwtRegisteredClaimNames.Sub, "Subject"),
+          new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+          new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+          new Claim("iss", "localhost"),
+          new Claim("aud", "school-project")
+      };
+
+      var token = new JwtSecurityToken(
+          claims: claims,
+          signingCredentials: credentials
+      );
+
+      var tokenHandler = new JwtSecurityTokenHandler();
+      var serializedToken = tokenHandler.WriteToken(token);
+
+      return Ok(serializedToken);
+    }
+
+    private SymmetricSecurityKey GenerateSecurityKey()
+    {
+      var keyBytes = new byte[32];
+      using (var rng = RandomNumberGenerator.Create())
+      {
+          rng.GetBytes(keyBytes);
+      }
+    return new SymmetricSecurityKey(keyBytes);
     }
   }
 }
