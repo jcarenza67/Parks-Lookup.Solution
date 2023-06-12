@@ -42,19 +42,58 @@ Features
 * Update existing park information.
 * Delete parks from the database.
 
-Setup/Installation Requirements
-------------------------------
+Setup Requirements
+------------------
 
+To set up the Park Lookup API project on your local machine, please ensure you have the following installed:
+
+* .Net 5.0 SDK
+* MySQL Server and MySQL Workbench
+* Postman
+
+Installation
+------------
+
+* _Clone the repository from GitHub using the following command:_
+```
+git clone https://github.com/jcarenza67/Parks-Lookup.Solution.git
+```
+
+* _Navigate to the project directory:
+```
+cd Parks-Lookup.Solution/ParksApi
+```
+
+* _Create a file named "appsettings.json" in the ParksApi directory with the following contents._
+```
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=3306;database=park_api;uid=YOUR_USERNAME;pwd=YOUR_PASSWORD;"
+  }
+}
+```
+* _Replace YOUR_USERNAME and YOUR_PASSWORD with the username and password you selected when installing MySQL Server._
+
+* _Run the following commands to install the required dependencies and start the API:_
+```
+dotnet restore
+dotnet build
+dotnet run
+```
+* _The API will be accessible at http://localhost:5000._
+
+* _To view the Swagger UI documentation for the API, navigate to http://localhost:5000/swagger in your web browser._
 
 Endpoints
 ---------
 
 * The API exposes the following endpoints:
-
-* 'GET /api/{v1,v2}/parks': Retrieves a list of all national parks.
-
+```
+* 'GET /api/{v1,v2}/parks
+```
+* _Retrieves a list of all national parks._
+JSON
 Example Request: 
-
 ```
     {
         "parkId": 1,
@@ -75,8 +114,12 @@ Example Request:
         "description": "Badlands National Park is an American national park located in southwestern South Dakota. The park protects 242,756 acres of sharply eroded buttes and pinnacles, along with the largest undisturbed mixed grass prairie in the United States."
     },
 ```
-* 'GET /api/{v1,v2}/parks/{id}': Retrieves detailed information about a specific park by its ID.
-
+***
+```
+* 'GET /api/{v1,v2}/parks/{id}
+```
+* _Retrieves detailed information about a specific park._
+JSON
 Example Request: 
 
 ```
@@ -87,48 +130,13 @@ Example Request:
         "description": "Acadia National Park is an American national park located in the state of Maine, southwest of Bar Harbor. The park preserves about half of Mount Desert Island, many adjacent smaller islands, and part of the Schoodic Peninsula on the coast of Maine."
     }
 ```
-* 'POST /api/{v1,v2}/parks': Adds a new national park to the database.
+***
+Postman Examples:
+-----------------
 
-* 'Get /api/v1,v2/Parks?pageNumber=1&pageSize=5': Retrieves a list of all national parks for the specified page number and page size.
+***Create a new park***:
 
-Example Request:
-  
-  ```
-      {
-          "parkId": 1,
-          "parkName": "Acadia",
-          "state": "Maine",
-          "description": "Acadia National Park is an American national park located in the state of Maine, southwest of Bar Harbor. The park preserves about half of Mount Desert Island, many adjacent smaller islands, and part of the Schoodic Peninsula on the coast of Maine."
-      },
-      {
-          "parkId": 2,
-          "parkName": "Arches",
-          "state": "Utah",
-          "description": "Arches National Park is a national park in eastern Utah, United States. The park is adjacent to the Colorado River, 4 miles north of Moab, Utah. More than 2,000 natural sandstone arches are located in the park, including the well-known Delicate Arch, as well as a variety of unique geological resources and formations."
-      },
-      {
-          "parkId": 3,
-          "parkName": "Badlands",
-          "state": "South Dakota",
-          "description": "Badlands National Park is an American national park located in southwestern South Dakota. The park protects 242,756 acres of sharply eroded buttes and pinnacles, along with the largest undisturbed mixed grass prairie in the United States."
-      },
-      {
-          "parkId": 4,
-          "parkName": "Big Bend",
-          "state": "Texas",
-          "description": "Big Bend National Park is an American national park located in West Texas, bordering Mexico. The park has national significance as the largest protected area of Chihuahuan Desert topography and ecology in the United States."
-      },
-      {
-          "parkId": 5,
-          "parkName": "Biscayne",
-          "state": "Florida",
-          "description": "Biscayne National Park is an American national park in southern Florida, south of Miami. The park preserves Biscayne Bay and its offshore barrier reefs. Ninety-five percent of the park is water, and the shore of the bay is the location of an extensive mangrove forest."
-      }
-  ```
-
-Postman:
-
-Create a new POST request in Postman and set the request URL to http://localhost:5000/api/v1/parks. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values:
+* For this operation, set up a new POST request in Postman with the request URL set to http://localhost:5000/api/v1,v2/parks and replace the strings with desired values.
 ```
     {
         "parkName": "string",
@@ -136,11 +144,11 @@ Create a new POST request in Postman and set the request URL to http://localhost
         "description": "string"
     }
 ```
-* 'PUT /api/{v1,v2}/parks/{id}': Updates information for a specific park.
+***
 
-Postman:
+***Update an existing park***:
 
-Create a new PUT request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. Then, select the Body tab and choose the raw option. Set the format to JSON and enter the following request body replacing string with the appropriate values to update the park:
+* For this operation, set up a new PUT request in Postman with the request URL set to http://localhost:5000/api/v1,v2/parks/{id} and replace the strings with desired values.
 ```
     {
         "parkName": "string",
@@ -148,19 +156,27 @@ Create a new PUT request in Postman and set the request URL to http://localhost:
         "description": "string"
     }
 ```
-* 'DELETE /api/{v1,v2}/parks/{id}': Deletes a national park from the database.
+***
 
-Postman:
+***Delete a park***:
 
-Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1/parks/1. 
+Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1,v2/parks/{id}. 
 Press send and you will receive a 204 No Content response if the park was successfully deleted.
+***
 
+***See a random park***:
+
+Create a new GET request in Postman and set the request URL to http://localhost:5000/api/v1,v2/parks/random.
+***
+***Please note that the endpoint URLs may vary depending on the version of the API you're using (v1 or v2).*** ***Comments in the controllers indicate which endpoints are available for each version.***
+***
 Pagenation Endpoints
 --------------------
+***v1 does not have pagination***
 
-* The API also supports pagination for the GET /api/{v2}/parks endpoint. The following endpoints are available for paginated results:
+* The API also supports pagination for the GET /api/v2/parks endpoint. The following endpoints are available for paginated results:
 
-* 'GET /api/{v2}/parks/page/{pageNumber}': Retrieves a list of all national parks for the specified page number.
+* 'GET api/v2/parks?pageNumber={number}&pageSize={number}': Retrieves a list of all national parks for the specified page number and page size.
 
 Optional Query Parameters
 -------------------------
