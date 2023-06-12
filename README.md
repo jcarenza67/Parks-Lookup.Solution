@@ -47,7 +47,7 @@ Setup Requirements
 
 To set up the Park Lookup API project on your local machine, please ensure you have the following installed:
 
-* .Net 5.0 SDK
+* .Net 6.0 SDK or higher
 * MySQL Server and MySQL Workbench
 * Postman
 
