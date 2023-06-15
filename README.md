@@ -89,7 +89,7 @@ Endpoints
 
 * The API exposes the following endpoints:
 ```
-* 'GET /api/{v1,v2}/parks
+* 'GET /api/{v1 or v2}/parks
 ```
 * _Retrieves a list of all national parks._
 JSON
@@ -116,7 +116,7 @@ Example Request:
 ```
 ***
 ```
-* 'GET /api/{v1,v2}/parks/{id}
+* 'GET /api/{v1 or v2}/parks/{id}
 ```
 * _Retrieves detailed information about a specific park._
 JSON
@@ -136,9 +136,10 @@ Postman Examples:
 
 ***Create a new park***:
 
-* For this operation, set up a new POST request in Postman with the request URL set to http://localhost:5000/api/v1,v2/parks and replace the strings with desired values.
+* For this operation, set up a new POST request in Postman with the request URL set to http://localhost:5000/api/{v1 or v2}/parks/{id} and replace the strings and integer with desired values.
 ```
     {
+        "parkId": int,
         "parkName": "string",
         "state": "string",
         "description": "string"
@@ -148,9 +149,10 @@ Postman Examples:
 
 ***Update an existing park***:
 
-* For this operation, set up a new PUT request in Postman with the request URL set to http://localhost:5000/api/v1,v2/parks/{id} and replace the strings with desired values.
+* For this operation, set up a new PUT request in Postman with the request URL set to http://localhost:5000/api/{v1 or v2}/parks/{id} and replace the strings and integer with desired values.
 ```
     {
+        "parkId": int,
         "parkName": "string",
         "state": "string",
         "description": "string"
@@ -160,13 +162,13 @@ Postman Examples:
 
 ***Delete a park***:
 
-Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/v1,v2/parks/{id}. 
+Create a new DELETE request in Postman and set the request URL to http://localhost:5000/api/{v1 or v2}/parks/{id}. 
 Press send and you will receive a 204 No Content response if the park was successfully deleted.
 ***
 
 ***See a random park***:
 
-Create a new GET request in Postman and set the request URL to http://localhost:5000/api/v1,v2/parks/random.
+Create a new GET request in Postman and set the request URL to http://localhost:5000/api/{v1 or v2}/parks/random.
 ***
 ***Please note that the endpoint URLs may vary depending on the version of the API you're using (v1 or v2).*** ***Comments in the controllers indicate which endpoints are available for each version.***
 ***
